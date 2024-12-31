@@ -1,0 +1,5 @@
+3. For the student with ID 12345, show all course_id and title of all courses registered for by the student.
+
+select course_id, title 
+from course
+where course_id in (select course_id from takes where id = '12345')
