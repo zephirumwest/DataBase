@@ -1,0 +1,5 @@
+1. Find the names of all the instructors from Biology department
+  
+select name 
+from instructor 
+where dept_name = 'Biology';
