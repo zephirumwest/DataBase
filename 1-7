@@ -1,0 +1,6 @@
+7.Display the IDs of all instructors who have never taught a couse(Notesad1) Oracle uses the keyword minus in place of except; 
+(2)interpret"taught"as"taughtorisscheduledtoteach")
+
+(select id from instructor)
+except
+(select id from teaches)
