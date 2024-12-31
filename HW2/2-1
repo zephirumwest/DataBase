@@ -1,0 +1,14 @@
+1. Find the maximum and minimum enrollment across all sections, considering only sections that had some enrollment, 
+don't worry about those that had no students taking that section
+
+select max(count_sec), min(count_sec)
+from
+(select S.course_id, (select count(T.course_id)
+                      from takes T
+                      where T.sec_id = S.sec_id
+                      and T.course_id = S.course_id
+                      and T.semester = S.semester
+                      and T.year = S.year) as count_sec
+from section S)
+as subquery
+where count_sec > 0
