@@ -1,0 +1,34 @@
+5. Find instructors who have taught all the above courses
+
+5-1. Using the "not exists ... except ..." structure
+
+select *
+from instructor I
+where not exists (
+    select C.course_id
+    from course C
+    where C.course_id like 'CS-%'
+)
+except
+(
+    select T.course_id
+    from teaches T
+    where T.i_id = I.i_id
+)
+
+5-2 Using matching of counts which we covered in class(don't forget the distinct clause!).
+
+select I.*
+from Instructor as I
+join (
+    select T.i_id, count(distinct C.course_id) as taught_course_count
+    from teaches T
+    join course C on T.course_id = C.course_id
+    where C.course_id like 'CS-%'
+    group by T.i_id
+) as taught_counts on I.i_id = taught_counts.i_id
+where taught_counts.taught_course_count = (
+    select count(distinct course_id)
+    from course
+    where course_id like 'CS-%'
+)
