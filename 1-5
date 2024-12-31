@@ -1,0 +1,7 @@
+5. As above, but display the total credits for each of the students, along with the ID of the student; 
+don't bother about the name of the student. (Don't bother about students who have not registered for any course, they can be omitted)
+
+select id, (select sum(C.credits)
+            from course C, takes T
+            where T.course_id = C.course_id and S.id = T.id) as total_credit)
+from student S
