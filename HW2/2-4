@@ -1,0 +1,5 @@
+4. Find all courses whose identifier starts with the string "CS-1“
+
+select * 
+from course
+where coutse_id like 'CS-1%'
