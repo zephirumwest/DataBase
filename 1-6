@@ -1,0 +1,8 @@
+6. Find the names of all students who have taken any Comp. Sci. course ever (there should be no duplicate names)
+
+select name
+from student
+where id in (select id
+             from takes
+             where couse_id like '%CS')
+             
