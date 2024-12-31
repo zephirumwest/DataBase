@@ -1,0 +1,29 @@
+3. As in in Q1, but now also include sections with no students taking them; the enrollment for such sections should be treated as zero. 
+Do this in two different ways. 
+
+3-1.Using a scalar subquery
+
+select max(
+  select count(T.course_id)
+  from takes T
+  where T.sec_id = S.sec_id
+  and T.course_id = S.course_id
+  and T.semester = S.semester
+  and T.year = S.year)) as max,
+  min((select count(T.course_id)
+  from takes T
+  where T.sec_id = S.sec_id
+  and T.course_id = S.course_id
+  and T.semester = S.semester
+  and T.year = S.year)) as min
+from section S
+
+3-2 Using aggregation on a left outer join(use the SQL natural left outer join syntax)
+
+create view count_id as (
+  select count(id)
+  from section
+  natural left outer join takes
+  group by course_id, sec_id, semester, year)
+
+select max(count), min(count) from count_id
