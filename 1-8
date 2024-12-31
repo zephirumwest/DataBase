@@ -1,0 +1,9 @@
+8. As above, but display the names of the instructors also, not just the IDs
+
+select id, name
+from instructor
+where id in (
+(select id from instructor)
+except
+(select id from teaches))
+        
