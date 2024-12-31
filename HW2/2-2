@@ -1,0 +1,14 @@
+2. Find all sections that had the maximum enrollment (along with the enrollment), using a subquery.
+
+create view subquery as
+select *, (select count(T.course_id)
+           from takes T
+           where T.sec_id = S.sec_id
+           and T.course_id = S.course_id
+           and T.semester = S.semester
+           and T.year = S.year) as count_sec
+from section S
+
+select *
+from subquery
+where count_sec = (select max(count_sec) from subquery)
