@@ -1,0 +1,6 @@
+4. As above, but show the total number of credits for such courses (taken by that student). 
+Don't display the tot_creds value from the student table, you should use SQL aggregation on courses taken by the student.
+
+select sum(credits)
+from course
+where course_id in (select course_id from takes where id = '12345')
